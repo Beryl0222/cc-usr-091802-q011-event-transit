@@ -1,0 +1,13 @@
+{
+  "service": "event-transit",
+  "context": {
+    "event": "太原城市路跑",
+    "starts": 4,
+    "transit_modes": [
+      "metro",
+      "bus",
+      "shuttle"
+    ],
+    "medical_priority": true
+  }
+}
