@@ -1,13 +1,28 @@
 {
   "service": "event-transit",
   "context": {
-    "event": "太原城市路跑",
+    "event": "太原城市路跑（四枪发令）",
+    "timezone": "Asia/Shanghai",
     "starts": 4,
-    "transit_modes": [
-      "metro",
-      "bus",
-      "shuttle"
+    "transit_modes": ["metro", "bus", "shuttle"],
+    "medical_priority": true,
+    "domains": [
+      "registration",
+      "bib_issuance",
+      "start_wave",
+      "route_trip",
+      "vehicle_capacity",
+      "traffic_control",
+      "hospital_green_channel"
     ],
-    "medical_priority": true
-  }
+    "guarantees": [
+      "offline_validate_then_sync",
+      "replay_deduplicates_capacity",
+      "loss_withdraw_wave_change_apply_forward_only",
+      "shuttle_never_consumes_medical_capacity",
+      "closure_adjusts_only_unscheduled_departures",
+      "point_in_time_replay_in_original_timezone"
+    ]
+  },
+  "note": "全部为虚构领域样例，仅用于说明数据边界，不包含真实个人资料或业务凭据。"
 }
