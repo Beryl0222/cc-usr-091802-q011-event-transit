@@ -1,13 +1,29 @@
 {
   "service": "event-transit",
   "context": {
-    "event": "太原城市路跑",
+    "event": "太原城市路跑（太原马拉松）",
+    "race_day": "2026-09-20",
+    "timezone": "Asia/Shanghai",
     "starts": 4,
-    "transit_modes": [
-      "metro",
-      "bus",
-      "shuttle"
+    "waves": [
+      {"wave_id": "A", "label": "全程马拉松（第一枪）", "start_at": "2026-09-20T07:00:00+08:00"},
+      {"wave_id": "B", "label": "半程马拉松（第二枪）", "start_at": "2026-09-20T07:15:00+08:00"},
+      {"wave_id": "C", "label": "迷你跑（第三枪）", "start_at": "2026-09-20T07:30:00+08:00"},
+      {"wave_id": "D", "label": "欢乐跑（第四枪）", "start_at": "2026-09-20T07:45:00+08:00"}
     ],
+    "transit_modes": ["metro", "bus", "shuttle", "medical"],
     "medical_priority": true
-  }
+  },
+  "benefit_windows": [
+    {"window_id": "metro-early", "mode": "metro", "title": "地铁提前运营，凭号码布免费进站", "start_at": "2026-09-20T04:30:00+08:00", "end_at": "2026-09-20T09:30:00+08:00"},
+    {"window_id": "bib-bus", "mode": "bus", "title": "比赛日公交凭号码布免费", "start_at": "2026-09-20T04:30:00+08:00", "end_at": "2026-09-20T14:00:00+08:00"},
+    {"window_id": "post-shuttle", "mode": "shuttle", "title": "赛后疏散接驳（限 A/B 枪）", "start_at": "2026-09-20T09:30:00+08:00", "end_at": "2026-09-20T15:00:00+08:00", "waves": ["A", "B"]}
+  ],
+  "rules": [
+    "所有事实以幂等事件追加，event_id 重放不重复占用容量",
+    "离线闸机/车载设备凭快照验票，联网补传，按事件发生时刻重放",
+    "挂失、退赛、改枪只影响生效后的行程，已完成通行保留原依据",
+    "道路封闭只改派尚未发车的班次，并向站点下发替代路线与通知回执",
+    "普通接驳与医疗转运分池，医疗请求自动打开医院绿色通道"
+  ]
 }
